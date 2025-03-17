@@ -1,0 +1,34 @@
+@startuml
+skinparam classFontSize 13
+
+class Client << (C,#FF7700) >> {
+}
+
+class SystemFacade << Facade >> {
+  - subsystemA: SubsystemA
+  - subsystemB: SubsystemB
+  - subsystemC: SubsystemC
+  + executeWorkflow()
+  + quickExecute()
+}
+
+class SubsystemA << Subsystem >> {
+  + operation1()
+  + operation2()
+}
+
+class SubsystemB << Subsystem >> {
+  + initialize()
+  + processData()
+}
+
+class SubsystemC << Subsystem >> {
+  + validate()
+  + cleanup()
+}
+
+Client --> SystemFacade
+SystemFacade *- SubsystemA : contains
+SystemFacade *- SubsystemB : contains
+SystemFacade *- SubsystemC : contains
+@enduml

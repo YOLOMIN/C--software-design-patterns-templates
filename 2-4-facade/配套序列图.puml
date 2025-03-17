@@ -1,0 +1,43 @@
+@startuml
+participant Client
+participant SystemFacade
+participant SubsystemA
+participant SubsystemB
+participant SubsystemC
+
+Client -> SystemFacade: executeWorkflow()
+activate SystemFacade
+
+SystemFacade -> SubsystemC: validate()
+activate SubsystemC
+SubsystemC --> SystemFacade: 
+deactivate SubsystemC
+
+SystemFacade -> SubsystemB: initialize()
+activate SubsystemB
+SubsystemB --> SystemFacade: 
+deactivate SubsystemB
+
+SystemFacade -> SubsystemA: operation1()
+activate SubsystemA
+SubsystemA --> SystemFacade: 
+deactivate SubsystemA
+
+SystemFacade -> SubsystemB: processData()
+activate SubsystemB
+SubsystemB --> SystemFacade: 
+deactivate SubsystemB
+
+SystemFacade -> SubsystemA: operation2()
+activate SubsystemA
+SubsystemA --> SystemFacade: 
+deactivate SubsystemA
+
+SystemFacade -> SubsystemC: cleanup()
+activate SubsystemC
+SubsystemC --> SystemFacade: 
+deactivate SubsystemC
+
+SystemFacade --> Client: 
+deactivate SystemFacade
+@enduml
