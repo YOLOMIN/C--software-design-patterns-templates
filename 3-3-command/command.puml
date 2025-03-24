@@ -1,0 +1,36 @@
+@startuml
+class Command {
+    + execute(): void
+    + undo(): void
+}
+
+class Light {
+    + on(): void
+    + off(): void
+}
+
+class LightOnCommand {
+    - light: Light*
+    + execute()
+    + undo()
+}
+
+class LightOffCommand {
+    - light: Light*
+    + execute()
+    + undo()
+}
+
+class RemoteControl {
+    - command: Command*
+    + setCommand(Command*)
+    + pressButton()
+    + undoLast()
+}
+
+Command <|-- LightOnCommand
+Command <|-- LightOffCommand
+LightOnCommand o-- Light
+LightOffCommand o-- Light
+RemoteControl o-- Command
+@enduml
