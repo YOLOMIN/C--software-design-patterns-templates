@@ -1,0 +1,41 @@
+@startuml
+' 定义观察者接口
+interface Observer {
+    + update(message: string)
+}
+
+' 定义主题接口
+interface Subject {
+    + attach(observer: Observer)
+    + detach(observer: Observer)
+    + notify()
+}
+
+' 具体主题类
+class ConcreteSubject {
+    - observers: vector<shared_ptr<Observer>>
+    - state: string
+    + setState(state: string)
+    + getState(): string
+    + attach(observer: shared_ptr<Observer>)
+    + detach(observer: shared_ptr<Observer>)
+    + notify()
+}
+
+' 具体观察者类
+class ConcreteObserver {
+    - name: string
+    + ConcreteObserver(name: string)
+    + update(message: string)
+}
+
+' 关系：ConcreteSubject 实现 Subject 接口
+Subject <|.. ConcreteSubject
+
+' 关系：ConcreteObserver 实现 Observer 接口
+Observer <|.. ConcreteObserver
+
+' 关系：ConcreteSubject 持有多个 Observer
+ConcreteSubject --> "0..*" Observer : maintains
+
+@enduml
