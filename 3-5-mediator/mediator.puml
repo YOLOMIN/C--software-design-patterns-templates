@@ -1,0 +1,32 @@
+@startuml
+interface Mediator {
+    + sendMessage(message: std::string, colleague: std::shared_ptr<Colleague>)
+}
+
+class ConcreteMediator {
+    - colleagues: std::vector<std::shared_ptr<Colleague>>
+    + addColleague(colleague: std::shared_ptr<Colleague>)
+    + sendMessage(message: std::string, sender: std::shared_ptr<Colleague>)
+}
+
+abstract class Colleague {
+    # mediator: std::shared_ptr<Mediator>
+    + Colleague(m: std::shared_ptr<Mediator>)
+    + send(message: std::string)
+    + receive(message: std::string)
+}
+
+class ConcreteColleagueA {
+    + receive(message: std::string)
+}
+
+class ConcreteColleagueB {
+    + receive(message: std::string)
+}
+
+Mediator <|.. ConcreteMediator
+Colleague <|-- ConcreteColleagueA
+Colleague <|-- ConcreteColleagueB
+Colleague --> Mediator : mediator
+ConcreteMediator o-- Colleague : colleagues
+@enduml
