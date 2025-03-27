@@ -1,0 +1,29 @@
+@startuml
+' 抽象处理者（Handler）类
+class Handler {
+    - nextHandler: Handler*      ' 私有成员：指向下一个处理者的指针
+    + setNext(Handler* handler): void  ' 公共方法：设置下一个处理者
+    + handleRequest(int request): void ' 公共方法：处理请求的入口
+    # canHandle(int request): bool     ' 受保护的虚方法：判断是否能处理请求
+    # process(int request): void       ' 受保护的虚方法：具体处理逻辑
+}
+
+' 具体处理者A（ConcreteHandlerA）
+class ConcreteHandlerA {
+    # canHandle(int request): bool override  ' 重写方法：判断是否处理负数
+    # process(int request): void override    ' 重写方法：处理负数请求
+}
+
+' 具体处理者B（ConcreteHandlerB）
+class ConcreteHandlerB {
+    # canHandle(int request): bool override  ' 重写方法：判断是否处理零
+    # process(int request): void override    ' 重写方法：处理零请求
+}
+
+' 继承关系：具体处理者继承自抽象处理者
+Handler <|-- ConcreteHandlerA
+Handler <|-- ConcreteHandlerB
+
+' 关联关系：Handler 包含指向下一个 Handler 的指针
+Handler o--> Handler : nextHandler
+@enduml
