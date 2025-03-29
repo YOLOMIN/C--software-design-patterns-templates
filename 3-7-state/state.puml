@@ -1,0 +1,37 @@
+@startuml
+' 状态接口
+interface State {
+    + handle(context: Context*)
+}
+
+' 具体状态类 ConcreteStateA
+class ConcreteStateA {
+    + handle(context: Context*) override
+}
+
+' 具体状态类 ConcreteStateB
+class ConcreteStateB {
+    + handle(context: Context*) override
+}
+
+' 环境类 Context
+class Context {
+    - currentState: unique_ptr<State>
+    + Context(state: unique_ptr<State>)
+    + setState(state: unique_ptr<State>)
+    + request()
+    + getStateName(): string
+}
+
+' 关系：具体状态实现 State 接口
+State <|.. ConcreteStateA
+State <|.. ConcreteStateB
+
+' 关系：Context 持有 State
+Context --> State : currentState
+
+' 关系：状态方法中使用 Context
+ConcreteStateA ..> Context : handle()
+ConcreteStateB ..> Context : handle()
+
+@enduml
