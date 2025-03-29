@@ -1,5 +1,5 @@
 # UML类图
-!](image.png)
+![alt text](image.png)
 
 - State：抽象状态接口，定义了 handle(Context* context) 方法，用于处理请求并可能进行状态切换。
 
