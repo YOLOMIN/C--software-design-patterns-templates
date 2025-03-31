@@ -1,0 +1,26 @@
+@startuml
+' 发起人类
+class Originator {
+    - state : string
+    + setState(state: string)
+    + getState() : string
+    + saveStateToMemento() : unique_ptr<Memento>
+    + getStateFromMemento(m: Memento)
+}
+
+' 备忘录类
+class Memento {
+    - state : string
+    + getState() : string
+}
+
+' 看护者类
+class Caretaker {
+    - memento : unique_ptr<Memento>
+    + setMemento(m: unique_ptr<Memento>)
+    + getMemento() : const Memento*
+}
+
+Originator --> Memento : creates & encapsulates state
+Caretaker --> Memento : stores
+@enduml
