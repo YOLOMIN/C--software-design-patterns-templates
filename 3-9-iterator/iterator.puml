@@ -1,0 +1,31 @@
+@startuml
+' 定义迭代器接口
+interface Iterator<T> {
+  +bool hasNext()
+  +T next()
+}
+
+' 定义聚合对象接口
+interface Aggregate<T> {
+  +Iterator<T>* createIterator()
+}
+
+' 具体迭代器实现类
+class ConcreteIterator<T> {
+  -const vector<T>& items
+  -size_t index
+  +ConcreteIterator(const vector<T>& items)
+  +bool hasNext()
+  +T next()
+}
+
+' 具体聚合对象实现类
+class ConcreteAggregate<T> {
+  -vector<T> items
+  +add(const T& item)
+  +Iterator<T>* createIterator()
+}
+
+Iterator <|.. ConcreteIterator
+Aggregate <|.. ConcreteAggregate
+@enduml
