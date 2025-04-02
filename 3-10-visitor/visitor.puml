@@ -1,0 +1,38 @@
+@startuml
+' 定义访问者接口
+interface Visitor {
+    + visitConcreteElementA(element: ConcreteElementA)
+    + visitConcreteElementB(element: ConcreteElementB)
+}
+
+' 定义抽象元素类
+abstract class Element {
+    + accept(visitor: Visitor) : void
+}
+
+' 具体元素 A
+class ConcreteElementA {
+    + accept(visitor: Visitor) : void
+    + operationA() : void
+}
+
+' 具体元素 B
+class ConcreteElementB {
+    + accept(visitor: Visitor) : void
+    + operationB() : void
+}
+
+' 具体访问者
+class ConcreteVisitor {
+    + visitConcreteElementA(element: ConcreteElementA) : void
+    + visitConcreteElementB(element: ConcreteElementB) : void
+}
+
+Visitor <|.. ConcreteVisitor
+Element <|-- ConcreteElementA
+Element <|-- ConcreteElementB
+
+ConcreteElementA ..> ConcreteVisitor : "accept() calls"
+ConcreteElementB ..> ConcreteVisitor : "accept() calls"
+
+@enduml
